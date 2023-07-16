@@ -1,4 +1,5 @@
 # Django #
+Poll_project/settings.py
 *.log
 *.pot
 *.pyc
