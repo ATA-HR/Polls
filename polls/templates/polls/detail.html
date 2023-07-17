@@ -1,0 +1,7 @@
+<h1 style="color:rgb(144, 19, 19)">{{ question.question_text }}</h1>
+<ul>
+  {% for choice in question.choice_set.all %}
+    <li><a href="result">{{ choice.choice_text }}</a></li>
+    
+  {% endfor %}
+</ul>
