@@ -1,12 +1,15 @@
-from django import http
-from django.http import HttpResponse
-
+from django.shortcuts import render, get_object_or_404
+from django.http import Http404, HttpResponse
+from polls.models import *
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    latest_questions_list = Question.objects.order_by("pub_date")[:5]
+    context = { "latest_questions_list": latest_questions_list}
+    return render(request, "polls/index.html", context)
 
 def detail(request, question_id):
-    return HttpResponse("You're looking at the results of question %s." % question_id)
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, "polls/detail.html", {"question": question})
 
 def result(request, question_id):
     return HttpResponse("You're looking at the results of the question %s" % question_id)
