@@ -1,8 +1,9 @@
+<h2> index page </h2>
 <h1>Questions:</h1>
 {% if latest_questions_list %}
     <ul>
         {% for question in latest_questions_list %}
-            <li style="list-style-type: none;"><a href="{{ question.id }}"> 
+            <li style="list-style-type: none;"><a href="{% url 'polls:detail' question.id %}"> 
                 {{ question.question_text }} </a> </li>
         {% endfor %}
     </ul>
