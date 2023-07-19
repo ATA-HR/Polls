@@ -4,7 +4,6 @@ Poll_project/settings.py
 *.pot
 *.pyc
 __pycache__
-db.sqlite3
 media
 
 # Backup files # 
