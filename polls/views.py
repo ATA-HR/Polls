@@ -1,21 +1,26 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.views import generic
 
 from polls.models import *
 
-def index(request):
-    latest_questions_list = Question.objects.order_by("pub_date")[:5]
-    context = { "latest_questions_list": latest_questions_list}
-    return render(request, "polls/index.html", context)
+class IndexView(generic.ListView):
+    template_name = "polls/index.html"
+    context_object_name = "latest_questions_list"
 
-def detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, "polls/detail.html", {"question": question})
+    def get_queryset(self) -> QuerySet[Any]:
+        return Question.objects.order_by("pub_date")[:5]
+    
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = "polls/detail.html"
 
-def results(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, "polls/results.html", {"question": question})
+class ResultView(generic.DetailView):
+    model = Question
+    template_name = "polls/results.html"
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
