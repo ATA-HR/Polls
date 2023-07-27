@@ -57,6 +57,7 @@ class QuestionIndexViewTests(TestCase):
         index page.
         """
         question = create_question(question_text="Past question.", days=-30)
+        question.choice_set.create(choice_text="choice", votes=0)
         response = self.client.get(reverse("polls:index"))
         self.assertQuerysetEqual(
             response.context["latest_questions_list"],
@@ -80,6 +81,7 @@ class QuestionIndexViewTests(TestCase):
         """
         question = create_question(question_text="Past question.", days=-30)
         create_question("Future question.", 30)
+        question.choice_set.create(choice_text="choice", votes=0)
         response = self.client.get(reverse("polls:index"))
         self.assertQuerysetEqual(
             response.context["latest_questions_list"],
@@ -89,7 +91,9 @@ class QuestionIndexViewTests(TestCase):
     def test_two_past_questions(self):
         """The questions index page may display multiple questions."""
         question1 = create_question(question_text="Past question 1.", days=-30)
+        question1.choice_set.create(choice_text="choice", votes=0)
         question2 = create_question(question_text="Past question 2.", days=-5)
+        question2.choice_set.create(choice_text="choice", votes=0)
         response = self.client.get(reverse("polls:index"))
         self.assertQuerysetEqual(
             response.context["latest_questions_list"],
