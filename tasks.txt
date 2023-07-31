@@ -1,8 +1,10 @@
 version 1.0 --> django basic polls project
 
-We are going to make a ask/answer web application after here
+We are going to make an ask/answer web application after here
 
 version 2.0 --> users make question and answer themselves
+- sign up users
+
 
 version 2.1 --> adding search toobalrs
 

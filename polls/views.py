@@ -6,8 +6,10 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
 from polls.models import *
+from polls.forms import SignUpForm
 
 class IndexView(generic.ListView):
     template_name = "polls/index.html"
@@ -40,4 +42,16 @@ def vote(request, question_id):
         selected_choice.votes += 1
         selected_choice.save()
         return HttpResponseRedirect(reverse("polls:results", args=(question.id, )))
-    
+
+@csrf_exempt 
+def signup(request):
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponse("user created succesfully")
+        else:
+            return(f"{form.error_messages}")
+    else:
+        return render(request, "signup", context={"succes": "method GET"})
