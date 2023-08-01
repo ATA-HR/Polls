@@ -53,5 +53,9 @@ def signup(request):
             return HttpResponse("user created succesfully")
         else:
             return(f"{form.error_messages}")
-    else:
-        return render(request, "signup", context={"succes": "method GET"})
+
+    elif request.method == "GET":
+        form = SignUpForm()
+        context = {"form": form, "error_message": "error"}
+        return render(request, "signup.html", context=context)
+    
