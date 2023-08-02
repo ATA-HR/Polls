@@ -3,6 +3,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
-class SignUpForm(forms.Form):
-    name = forms.CharField(label="your_name", max_length=30)
+class SignUpForm(UserCreationForm):
     
+    class Meta:
+        model = User
+        fields = ("username", "password1", "password2")
+
+    def save(self, commit=True):
+        user = super().save(commit=commit)
+        return user

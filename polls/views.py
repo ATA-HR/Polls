@@ -57,5 +57,5 @@ def signup(request):
     elif request.method == "GET":
         form = SignUpForm()
         context = {"form": form, "error_message": "error"}
-        return render(request, "signup.html", context=context)
+        return render(request, "polls/signup.html", context=context)
     
