@@ -52,7 +52,7 @@ def signup(request):
             form.save()
             return HttpResponse("user created succesfully")
         else:
-            return(f"{form.error_messages}")
+            return HttpResponse("user NOT created succesfully")
 
     elif request.method == "GET":
         form = SignUpForm()
