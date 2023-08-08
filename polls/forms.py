@@ -14,3 +14,7 @@ class SignUpForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=commit)
         return user
+
+class SignInForm():
+    username = forms.CharField()
+    password = forms.CharField()

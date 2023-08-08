@@ -58,4 +58,7 @@ def signup(request):
         form = SignUpForm()
         context = {"form": form, "error_message": "error"}
         return render(request, "polls/signup.html", context=context)
+
+@csrf_exempt
+def login_view():
     
